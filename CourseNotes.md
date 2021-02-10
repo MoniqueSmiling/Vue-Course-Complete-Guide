@@ -127,7 +127,7 @@ Acts like a data property, even though it's technically a method. Therefor shoul
 
 Ex.
 
-```js
+```html
 <p>{{ courseGoal }}</p>
 ```
 
