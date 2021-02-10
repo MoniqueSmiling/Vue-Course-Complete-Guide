@@ -236,6 +236,16 @@ You can have multiple classes in an array inside of the class element
 <div :class="['demo','boxAclasses']"></div>
 ```
 
+### Scoped Styling
+
+- Adding the keyword **scoped** to the `<style>` will scope the styling to the component it's placed in.
+
+```css
+<style scoped>
+/* Scoped styles*/
+</style>
+```
+
 ## Best Practices
 
 The HTML Code should only be about outputting values, not doing logic.
@@ -325,3 +335,24 @@ goal is only accesible inside of the element v-for is called upon.
 - components are used to build UIs by combining them
   - are reusable custom html blocks you make with vue
 - components form parent-child relationships.
+
+### Global vs Local registration
+
+- You can import and mount the component gobally (in main.js) or locally in other components, App.vue etc.
+- If you import globally they are loaded when the website is first opened
+- If you do it locally it's only loaded when that .vue component is accessed.
+- Use Global registration when the component needs to be used several places.
+- Use local if it only needs to be used once.
+
+```js
+import TheHeader from "./components/TheHeader.vue";
+
+export default {
+  components: { "the-header": TheHeader },
+  ...
+```
+
+Can be written in multiple ways
+`components: {"the-header": TheHeader}, components: {TheHeader: TheHeader}, components: {TheHeader}`, when used in `<template>` you can both call the element by `<the-header>...</the-header>` and `<TheHeader></TheHeader`
+
+## Slot
