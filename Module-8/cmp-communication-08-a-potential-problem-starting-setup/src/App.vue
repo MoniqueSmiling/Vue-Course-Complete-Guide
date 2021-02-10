@@ -4,10 +4,7 @@
       :topic-title="activeTopic && activeTopic.title"
       :text="activeTopic && activeTopic.fullText"
     ></active-element>
-    <knowledge-base
-      :topics="topics"
-      @select-topic="activateTopic"
-    ></knowledge-base>
+    <knowledge-base></knowledge-base>
   </div>
 </template>
 
@@ -35,10 +32,12 @@ export default {
       activeTopic: null,
     };
   },
+  // provides child components of App.vue with possibility of injection this values
   provide() {
     return {
       // reaches out to data topics property
       topics: this.topics,
+      selectTopic: this.activateTopic,
     };
   },
   mounted() {

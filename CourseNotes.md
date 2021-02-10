@@ -3,6 +3,8 @@
 Vue uses a declarative approach, "we declare our goal" unlike normal Javascript that uses a imperative approach. We define a goal or a template for that goal.
 
 - Each view app works as standalone.
+- unidirectional dataflow
+- no sibling communication, always parent => child
 
 # 1. Creating and Mounting the App
 
@@ -48,17 +50,6 @@ You can mount on Id as well as class, but only one instance of the mount will oc
 
 ## Properties
 
-### Props
-
-- Receives
-- short for properties
-- custom html attributes
-- Can't mutate.
-
-### Emits
-
-- Which custom events your components will emit
-
 ### data
 
 Holds properties.
@@ -84,6 +75,43 @@ Acts like a data property, even though it's technically a method. Therefor shoul
 > Not used directly in template
 > Allows you to run any code in reaction to some changed data (e.g. send Http request etc.)
 > used for: Use for any non-data update you want to make. Execute code because something changed.
+
+### Props
+
+- **Default means of communication**
+- Are used to **pass data from a parent to a child** component
+- Should be defined in advance, possibly in great detail (type, required etc.)
+- short for properties
+- custom html attributes
+- Can't mutate.
+
+### Custom Events / Emits (child => parent )
+
+- Which **custom events** your components will pass (via \$emit) to trigger a method in a parent component.
+- can carry data which can be used in the called method
+
+### provide - inject
+
+- if data needs to be passed across multiple components ("pass-through"), you can use provide/inject
+- Provide data in a parent component, inject it into a child component.
+
+<details>
+<summary>Example of provide/inject</summary>
+
+```js
+// Parent file
+  provide() {
+    return {
+      // reaches out to data topics property
+      topics: this.topics,
+      selectTopic: this.activateTopic,
+    };
+```
+
+```js
+  // injecting values provided by App.vue
+  inject: ['selectTopic'],
+```
 
 </details>
 
@@ -294,4 +322,6 @@ goal is only accesible inside of the element v-for is called upon.
 
 ## Components
 
-- are reusable custom html blocks you make with vue
+- components are used to build UIs by combining them
+  - are reusable custom html blocks you make with vue
+- components form parent-child relationships.
