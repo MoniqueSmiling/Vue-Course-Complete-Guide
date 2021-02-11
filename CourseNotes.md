@@ -204,20 +204,54 @@ Vue has easy access event modifiers
 - ctrl
 - shift
 
+## Slots
+
+- Can be used as a 'placeholder' for dynamic HTML code.
+  > Shorthand v-slot: #title
+
+<details>
+<summary>Example of use of slots</summary>
+
+```html
+<!-- CourseGoals.vue - Child file -->
+<ul>
+  <li v-for="goal in goals" :key="goal">
+    <slot :item="goal" another-prop="..test"></slot>
+  </li>
+</ul>
+
+<!-- App.vue - Parent file -->
+<course-goals #default="slotProps">
+  <h2>{{ slotProps.item }}</h2>
+  <p>{{ slotProps.anotherProp }}</p>
+</course-goals>
+```
+
+</details>
+
+### scoped slots
+
 ## Styling
 
 ### In-line styling (Not Optimal)
 
 Example of using inline styling with v-bind/: to select border color by a
 
-[ternary expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) inside of an object.
+### [Ternary expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) inside of an object.
+
+<details>
+<summary>Ternary expression inside of an object</summary>
 
 ```js
 <div class="demo" :style="{borderColor: boxASelected ? 'red' : '#ccc'}" @click="boxSelected('A')"></div>
 ```
 
+</details>
+
 ### Using computed classes
 
+<details>
+<summary>Example</summary>
 ```js
 boxAClasses() {
             return {active: boxASelected};
@@ -228,6 +262,7 @@ boxAClasses() {
 <div :class="boxAClasses"></div>
 ```
 
+</details>
 ### Array Syntax
 
 You can have multiple classes in an array inside of the class element
@@ -239,6 +274,7 @@ You can have multiple classes in an array inside of the class element
 ### Scoped Styling
 
 - Adding the keyword **scoped** to the `<style>` will scope the styling to the component it's placed in.
+- **Prefer scoped styles.**
 
 ```css
 <style scoped>
@@ -342,7 +378,7 @@ goal is only accesible inside of the element v-for is called upon.
 - If you import globally they are loaded when the website is first opened
 - If you do it locally it's only loaded when that .vue component is accessed.
 - Use Global registration when the component needs to be used several places.
-- Use local if it only needs to be used once.
+- Use local if it only needs to be used once. => **Prefer local registration.**
 
 ```js
 import TheHeader from "./components/TheHeader.vue";
@@ -352,7 +388,58 @@ export default {
   ...
 ```
 
-Can be written in multiple ways
+<details>
+<summary>Can be written in multiple ways</summary>
+
 `components: {"the-header": TheHeader}, components: {TheHeader: TheHeader}, components: {TheHeader}`, when used in `<template>` you can both call the element by `<the-header>...</the-header>` and `<TheHeader></TheHeader`
 
-## Slot
+</details>
+
+### Dynamic Components
+
+- components can be swapped dynamically via the built-in "component" component.
+- Component caching can be added via the "keep-alive" component.
+<details>
+<summary>Example of swapped components, keep-alive caching</summary>
+
+```html
+<!-- two button for switching between components active-goals and manage-goals -->
+<button @click="setSelectedComponent('active-goals')">Active Goals</button>
+<button @click="setSelectedComponent('manage-goals')">Manage Goals</button>
+
+<!-- Dynamic components -->
+<!-- keep-alive component makes sure the that the component below is gets cached, rather than destroyed -->
+<keep-alive>
+  <component :is="selectedComponent"></component>
+</keep-alive>
+```
+
+```js
+// local registering component
+import ActiveGoals from "./components/ActiveGoals.vue";
+import ManageGoals from "./components/ManageGoals.vue";
+
+// Imported components
+components: {
+    ...,
+    ActiveGoals,
+    ManageGoals,
+  },
+  // makes sure Active goals is selected at the beginning
+  data() {
+    return {
+      selectedComponent: "active-goals",
+    };
+  },
+  // Method that changes selectedComponent property and changes it to the one send by button click.
+  methods: {
+    setSelectedComponent(cmp) {
+      this.selectedComponent = cmp;
+    },
+```
+
+</details>
+
+## Teleport
+
+- DOM structure can be manipulated via "teleport" - it keeps the component hierarchy!
