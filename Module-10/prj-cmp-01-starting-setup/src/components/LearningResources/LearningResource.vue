@@ -1,15 +1,15 @@
 <template>
   <li>
-    <header>
-      <div>
-        <h2>{{ title }}</h2>
-      </div>
-      <button>Delete</button>
-    </header>
-    <p>{{ description }}</p>
-    <nav>
-      <a :href="link">View Resource</a>
-    </nav>
+    <base-card>
+      <header>
+        <h3>{{ title }}</h3>
+        <base-button mode="flat">Delete</base-button>
+      </header>
+      <p>{{ description }}</p>
+      <nav>
+        <a :href="link">View Resource</a>
+      </nav>
+    </base-card>
   </li>
 </template>
 
@@ -20,10 +20,28 @@ export default {
 </script>
 
 <style scoped>
+li {
+  margin: auto;
+  max-width: 40rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
 a {
   text-decoration: none;
-  font-weight: bold;
-  font-size: 1.2rem;
   color: #ce5c00;
 }
 
