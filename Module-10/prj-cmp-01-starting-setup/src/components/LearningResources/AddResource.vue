@@ -1,21 +1,21 @@
 <template>
+  <base-dialog
+    v-if="inputIsInvalid"
+    title="Invalid Input"
+    @close="confirmError"
+  >
+    <template #default>
+      <p>Unfortunately atleast one input value is invalid.</p>
+      <p>
+        Please check all inputs and make sure you enter at least a few
+        characters into each input field.
+      </p>
+    </template>
+    <template #actions>
+      <base-button @click="confirmError">Okay</base-button>
+    </template>
+  </base-dialog>
   <base-card>
-    <base-dialog
-      v-if="inputIsInvalid"
-      title="Invalid Input"
-      @close="confirmError"
-    >
-      <template #default>
-        <p>Unfortunately atleast one input value is invalid.</p>
-        <p>
-          Please check all inputs and make sure you enter at least a few
-          characters into each input field.
-        </p>
-      </template>
-      <template #actions>
-        <base-button @click="confirmError">Okay</base-button>
-      </template>
-    </base-dialog>
     <form>
       <div class="form-control" @submit.prevent="submit">
         <label for="title">Title</label>
@@ -44,9 +44,7 @@
 </template>
 
 <script>
-import BaseDialog from '../UI/BaseDialog.vue';
 export default {
-  components: { BaseDialog },
   inject: ['addResource'],
   data() {
     return {
@@ -65,7 +63,7 @@ export default {
         enteredLink === ''
       ) {
         this.inputIsInvalid = true;
-        return;
+        // return;
       } else {
         this.addResource(enteredTitle, enteredDescription, enteredLink);
       }
