@@ -17,7 +17,7 @@
   </base-dialog>
   <base-card>
     <form>
-      <div class="form-control" @submit.prevent="submit">
+      <div class="form-control" @submit.prevent="submitData">
         <label for="title">Title</label>
         <input id="title" name="title" type="text" ref="titleInput" />
       </div>

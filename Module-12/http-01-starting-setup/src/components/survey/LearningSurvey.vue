@@ -9,7 +9,13 @@
         </div>
         <h3>My learning experience was ...</h3>
         <div class="form-control">
-          <input type="radio" id="rating-poor" value="poor" name="rating" v-model="chosenRating" />
+          <input
+            type="radio"
+            id="rating-poor"
+            value="poor"
+            name="rating"
+            v-model="chosenRating"
+          />
           <label for="rating-poor">Poor</label>
         </div>
         <div class="form-control">
@@ -23,12 +29,19 @@
           <label for="rating-average">Average</label>
         </div>
         <div class="form-control">
-          <input type="radio" id="rating-great" value="great" name="rating" v-model="chosenRating" />
+          <input
+            type="radio"
+            id="rating-great"
+            value="great"
+            name="rating"
+            v-model="chosenRating"
+          />
           <label for="rating-great">Great</label>
         </div>
-        <p
-          v-if="invalidInput"
-        >One or more input fields are invalid. Please check your provided data.</p>
+        <p v-if="invalidInput">
+          One or more input fields are invalid. Please check your provided data.
+        </p>
+        <p v-if="error">{{ error }}</p>
         <div>
           <base-button>Submit</base-button>
         </div>
@@ -44,6 +57,7 @@ export default {
       enteredName: '',
       chosenRating: null,
       invalidInput: false,
+      error: null,
     };
   },
   emits: ['survey-submit'],
@@ -55,10 +69,35 @@ export default {
       }
       this.invalidInput = false;
 
-      this.$emit('survey-submit', {
-        userName: this.enteredName,
-        rating: this.chosenRating,
-      });
+      this.error = null;
+      // this.$emit('survey-submit', {
+      //   userName: this.enteredName,
+      //   rating: this.chosenRating,
+      // });
+      // Sends behind the scenes http request, without rebooting app
+      // Different types of http requests: GET, POST, DELETE, PATCH etc.
+      fetch(
+        'https://vue-http-demo-d9e04-default-rtdb.europe-west1.firebasedatabase.app/surveys.json',
+        {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            name: this.enteredName,
+            rating: this.chosenRating,
+          }),
+        }
+      )
+        .then((response) => {
+          if (response.ok) {
+            //...
+          } else {
+            throw new Error('Could not save data!');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.error = error.message;
+        });
 
       this.enteredName = '';
       this.chosenRating = null;
