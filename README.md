@@ -452,3 +452,43 @@ components: {
 <summary></summary>
 
 </details>
+
+# Routing
+
+<details>
+<summary>Installing Routing Package</summary>
+
+**CMD:**
+<code>
+npm install --save vue-router@next
+</code>
+
+**main.js Registration**
+
+```js
+import { createApp } from "vue";
+// Importing router and history
+import { createRouter, createWebHistory } from "vue-router";
+
+import App from "./App.vue";
+
+// Creating variable to hold the router
+const router = createRouter({
+  // Holds the history of where we've been in our singlepage application
+  history: createWebHistory(),
+  // An array of registered routes for the different components utilized
+  routes: [{ path: "/teams", component: "" }],
+});
+const app = createApp(App);
+
+app.mount("#app");
+```
+
+</details>
+
+With redirect you are redirected to another route
+with Alias you will be missing the change of the URL
+
+<details>
+<summary></summary>
+</details>
