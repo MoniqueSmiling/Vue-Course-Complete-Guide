@@ -492,3 +492,28 @@ with Alias you will be missing the change of the URL
 <details>
 <summary></summary>
 </details>
+
+## Navigation Guards - Authenticaion
+
+> Guards: functions/methods called by the Vue app when the navigation module is started.
+
+### Before Guards
+
+```js
+router.beforeEach(function (to, from, next) {
+  console.log("Global beforeEach");
+  console.log(to, from);
+  // A hook that makes it impossible for you to leave teams
+  if (to.name === "team-members") {
+    next();
+  } else {
+    next({ name: "team-members", params: { teamId: "t2" } });
+  }
+});
+```
+
+### After Guards
+
+## Metadata
+
+Route Meta fields, can take any kind of value.

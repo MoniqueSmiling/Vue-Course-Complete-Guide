@@ -52,6 +52,14 @@ export default {
   created() {
     // this.$route.path // Example teams/t1
     this.loadTeamMembers(this.teamId);
+    console.log(this.$route.query);
+  },
+  // Vue calls this every time the component is being reused with new data
+  beforeRouteUpdate(to, from, next) {
+    console.log('TeamMembers Cmp beforeRouteUpdate');
+    console.log(to, from);
+    this.loadTeamMembers(to.param.teamId);
+    next();
   },
   watch: {
     teamId(newId) {
