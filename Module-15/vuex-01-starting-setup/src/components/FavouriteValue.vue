@@ -7,7 +7,10 @@
 export default {
   computed: {
     counter() {
-      return this.$store.getters.normalizedCounter;
+      // Without namespace
+      // return this.$store.getters.normalizedCounter;
+      // With namespace
+      return this.$store.getters['numbers/normalizedCounter'];
     },
   },
 };

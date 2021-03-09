@@ -16,8 +16,8 @@ export default {
     // },
     // Use ...mapActions to tell which actions we want to utilize
     // ...mapActions(['increment', 'increase']),
-    // Alternative way of writing it:
-    ...mapActions({
+    // Alternative way of writing it: (with namespace)
+    ...mapActions('numbers', {
       inc: 'increment',
       increase: 'increase',
     }),

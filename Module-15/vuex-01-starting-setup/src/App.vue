@@ -41,9 +41,9 @@ export default {
       //   type: 'increase',
       //   value: 10,
       // });
-      // When an action it's dispatch
+      // When an action it's dispatch (with namespace)
       this.$store.dispatch({
-        type: 'increase',
+        type: 'numbers/increase',
         value: 10,
       });
     },
