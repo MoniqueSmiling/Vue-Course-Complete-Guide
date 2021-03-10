@@ -517,3 +517,36 @@ router.beforeEach(function (to, from, next) {
 ## Metadata
 
 Route Meta fields, can take any kind of value.
+
+# Vuex
+
+Vuex is a library for managing global state.
+State is reactive data. Data that may change and when changing triggers something on the screen.
+
+**With just Vue**
+
+1. You might end up with _fat components_ that has alot of logic in them.
+2. Unpredictable, it's not always obvious where data (state) gets changed in which way
+3. Accidental or missed state updates are possible.
+
+**With vuex**
+
+> you outsource the state management, by detaching it from the
+
+1. components and placing it elsewhere.
+2. predictable state management/flow
+3. Clearly defined data flow, less errors.
+
+## Why use it?
+
+Managing global state can be difficult to maintain as your app grows.
+
+### Local State
+
+> Affects changes inside one component
+> Ex. user input entered into something or a button that show/hide a container.
+
+### Global State
+
+> Affects multiple compontents or possibly the entire app.
+> Ex. User authentication status (logged in or not ), shopping cart items presented in several parts of the app.
